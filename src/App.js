@@ -1,8 +1,10 @@
+import logoHeader from '../../mesto-react/src/images/logo__header.svg';
+
 function App() {
   return (
     <div className="page">
       <header className="header">
-        <img className="header__logo" src="<%=require('./images/logo__header.svg')%>" alt="Логотип" />
+        <img className="header__logo" src={logoHeader} alt="Логотип" />
       </header>
 
       <main className="content">

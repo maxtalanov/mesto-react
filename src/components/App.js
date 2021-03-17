@@ -1,4 +1,4 @@
-import logoHeader from '../../mesto-react/src/images/logo__header.svg';
+import logoHeader from '../images/logo__header.svg';
 
 function App() {
   return (

@@ -6,13 +6,13 @@ import Footer from '../components/Footer';
 import PopupWidthForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
-function App(props) {
+function App() {
   //console.log(props, 'Компонент APP');
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [dataImg, setDataImg] = React.useState([])
+  const [dataImg, setDataImg] = React.useState({})
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -21,8 +21,10 @@ function App(props) {
     setSelectedCard(false)
   }
 
-  function handleCardClick({title, src, alt}){
-  setDataImg(title, src, alt)
+  function handleCardClick(props){
+    console.log(props);
+    setSelectedCard(true);
+    setDataImg(props);
   }
 
   function handleEditAvatarClick() {

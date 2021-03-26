@@ -5,13 +5,13 @@ function Card(props) {
   // console.log(props, 'Компонен: CARD');
 
   function clickImg() {
-    props.onClickCard(props.title, props.src, props.alt);
+    props.onClickCard(props);
   }
 
   return(
     <figure className="card">
       <button className="trash hover-opacity" />
-      <img className="card__img" src={props.scr} alt={props.alt} onClick={clickImg}/>
+      <img className="card__img" src={props.src} alt={props.alt} onClick={clickImg}/>
       <figcaption className="card__bottom">
         <div className="card__text">
           <p className="card__title">{props.title}</p>

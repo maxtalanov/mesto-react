@@ -58,7 +58,7 @@ function Main(props) {
           cards.map(item => <Card
             key={item._id}
             title={item.name}
-            scr={item.link}
+            src={item.link}
             alt={item.name}
             likes={item.likes}
             onClickCard={props.onCardClick}

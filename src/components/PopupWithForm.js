@@ -3,7 +3,8 @@ import React from 'react';
   //Компонент ф-ый
 function PopupWidthForm (props) {
 
-  const classOpen = props.isOpen? 'popup_opened':''
+  const classOpen = props.isOpen? 'popup_opened':'';
+
   return (
     <section className={`popup popup_type_${props.name} ${classOpen}`}>
       <form className={`form form-${props.name}`} action="#" name={`${props.name}`}>

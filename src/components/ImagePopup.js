@@ -2,8 +2,7 @@ import React from 'react';
 
   //Компонент ф-ый
 function ImagePopup(props) {
-  console.log(props, 'Компонен: POPUP IMG');
-  console.log(props.cardData.src);
+  //console.log(props, 'Компонен: POPUP IMG');
 
 
   const classOpen = props.card? 'popup_opened':''

@@ -22,7 +22,6 @@ function App() {
   }
 
   function handleCardClick(props){
-    console.log(props);
     setSelectedCard(true);
     setDataImg(props);
   }

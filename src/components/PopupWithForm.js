@@ -1,7 +1,7 @@
 import React from 'react';
 
   //Компонент ф-ый
-function PopupWidthForm (props) {
+function PopupWithForm (props) {
 
   const classOpen = props.isOpen? 'popup_opened':'';
 
@@ -17,4 +17,4 @@ function PopupWidthForm (props) {
   )
 }
 
-export default PopupWidthForm;
+export default PopupWithForm;

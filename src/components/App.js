@@ -52,7 +52,7 @@ function App() {
       />
       <Footer />
 
-      <PopupWidthForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}>
         <fieldset className="form__set form__profile">
           <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"
           minLength="2" maxLength="40" autoComplete="off" required />
@@ -64,9 +64,9 @@ function App() {
         </fieldset>
 
         <input className="form__btn-input form__btn-save" type="submit" value="Сохранить" />
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}>
+      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}>
         <fieldset className="form__set">
           <input className="form__input form__in-name" id="card-name" type="text" name="name" placeholder="Название"
           minLength="2" maxLength="30" autoComplete="off" required />
@@ -78,9 +78,9 @@ function App() {
         </fieldset>
 
         <input className="form__btn-input form__btn-create" type="submit" value="Создать" />
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}>
+      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}>
 
         <fieldset className="form__set">
           <input className="form__input form__in-link" id="avatar-link" type="url" name="avatar"
@@ -89,11 +89,11 @@ function App() {
         </fieldset>
 
         <input className="form__btn-input form__btn-save" type="submit" value="Сохранить" />
-      </PopupWidthForm>
+      </PopupWithForm>
 
-      <PopupWidthForm name="delete" title="Вы уверены?">
+      <PopupWithForm name="delete" title="Вы уверены?">
         <input className="form__btn-input form__btn-create" type="submit" value="Да" />
-      </PopupWidthForm>
+      </PopupWithForm>
 
       <ImagePopup
         card={selectedCard}

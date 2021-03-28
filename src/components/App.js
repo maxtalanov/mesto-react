@@ -94,8 +94,7 @@ function App() {
 
       </PopupWithForm>
 
-      <PopupWithForm name="delete" title="Вы уверены?">
-        <input className="form__btn-input form__btn-create" type="submit" value="Да" />
+      <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inpitValue="Да">
       </PopupWithForm>
 
       <ImagePopup

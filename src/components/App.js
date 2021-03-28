@@ -21,9 +21,9 @@ function App() {
     setSelectedCard(false)
   }
 
-  function handleCardClick(props){
+  function handleCardClick(card){
     setSelectedCard(true);
-    setDataImg(props);
+    setDataImg(card);
   }
 
   function handleEditAvatarClick() {

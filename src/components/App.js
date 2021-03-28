@@ -52,7 +52,9 @@ function App() {
       />
       <Footer />
 
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}>
+      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}
+      inputBtnSelector="save" inpitValue="Сохранить">
+
         <fieldset className="form__set form__profile">
           <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"
           minLength="2" maxLength="40" autoComplete="off" required />
@@ -63,10 +65,12 @@ function App() {
           <span className="form__error-span" id="profile-status-error" />
         </fieldset>
 
-        <input className="form__btn-input form__btn-save" type="submit" value="Сохранить" />
+
       </PopupWithForm>
 
-      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}>
+      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}
+      inputBtnSelector="create" inpitValue="Создать">
+
         <fieldset className="form__set">
           <input className="form__input form__in-name" id="card-name" type="text" name="name" placeholder="Название"
           minLength="2" maxLength="30" autoComplete="off" required />
@@ -77,10 +81,10 @@ function App() {
           <span className="form__error-span" id="card-link-error" />
         </fieldset>
 
-        <input className="form__btn-input form__btn-create" type="submit" value="Создать" />
       </PopupWithForm>
 
-      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}>
+      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}
+      inputBtnSelector="save" inpitValue="Сохранить">
 
         <fieldset className="form__set">
           <input className="form__input form__in-link" id="avatar-link" type="url" name="avatar"
@@ -88,7 +92,6 @@ function App() {
           <span className="form__error-span" id="avatar-link-error" />
         </fieldset>
 
-        <input className="form__btn-input form__btn-save" type="submit" value="Сохранить" />
       </PopupWithForm>
 
       <PopupWithForm name="delete" title="Вы уверены?">

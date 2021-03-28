@@ -11,6 +11,7 @@ function PopupWithForm (props) {
         <h2 className="form__title">{props.title}</h2>
         {props.children}
 
+        <input className={`form__btn-input form__btn-${props.inputBtnSelector}`} type="submit" value={props.inpitValue} />
         <button className="form__btn-exit popup__btn-exit hover-opacity" onClick={props.onClose} type="reset" />
       </form>
     </section>

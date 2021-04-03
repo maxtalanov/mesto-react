@@ -1,12 +1,11 @@
 import React from 'react';
 import api from "../utils/api";
 import Card from "./Card";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
-
-  const [userName, setUserName] = React.useState();
-  const [userDescription , setUserDescription ] = React.useState();
-  const [userAvatar , setUserAvatar ] = React.useState();
+  const currentUser = React.useContext(CurrentUserContext);
+  console.log(currentUser);
   const [cards , setCards ] = React.useState([]);
 
   React.useEffect(()=> {
@@ -22,33 +21,19 @@ function Main(props) {
         console.log('Код ошибки:', err); // выведем ошибку в консоль
         console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
       })
-
-    //запрос за пользователем
-    api.getInfoUser()
-      .then(userInfo => {
-          setUserAvatar(userInfo.avatar);
-          setUserName(userInfo.name);
-          setUserDescription(userInfo.about);
-      })
-      .catch((err) => {
-          const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
-
-          console.log('Код ошибки:', err); // выведем ошибку в консоль
-          console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
-        })
   }, []);
 
   return (
     <main className="content">
       <section className="profile">
         <a className="profile__img-box" onClick={props.avatarEditOnClick}>
-          <img className="profile__avatar profile__btn-avtar-edit hover-opacity" src={userAvatar} alt="Аватар" />
+          <img className="profile__avatar profile__btn-avtar-edit hover-opacity" src={currentUser.avatar} alt="Аватар" />
         </a>
 
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser.name}</h1>
           <button className="profile__edit-button hover-opacity" type="button" onClick={props.profileEditOnClick} />
-          <p className="profile__status">{userDescription}</p>
+          <p className="profile__status">{currentUser.about}</p>
         </div>
         <button className="profile__add-button hover-opacity" type="button" onClick={props.addPlacrOnClick} />
       </section>

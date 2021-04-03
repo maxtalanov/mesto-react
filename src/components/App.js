@@ -1,10 +1,12 @@
 import React from "react";
 
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import api from '../utils/api';
 
 function App() {
   //console.log(props, 'Компонент APP');
@@ -12,7 +14,23 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [dataImg, setDataImg] = React.useState({})
+  const [dataImg, setDataImg] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState();
+
+
+    React.useEffect(() => {
+    api.getInfoUser()
+      .then(userInfo => {
+        setCurrentUser(userInfo)
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      })
+  },[])
+
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -44,12 +62,14 @@ function App() {
   return (
     <div className="page">
       <Header />
-      <Main
-        profileEditOnClick={handleEditProfileClick}
-        addPlacrOnClick={handleAddPlaceClick}
-        avatarEditOnClick={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-      />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Main
+          profileEditOnClick={handleEditProfileClick}
+          addPlacrOnClick={handleAddPlaceClick}
+          avatarEditOnClick={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
+      </CurrentUserContext.Provider>
       <Footer />
 
       <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}

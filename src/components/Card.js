@@ -7,12 +7,13 @@ function Card(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = props.ownerId === currentUser._id;
-  console.log(isOwn);
-  //console.log(currentUser, 'Компонен: CARD');
   const cardDeletBtn = (
     `trash ${isOwn ? 'trash_btn_visible' : 'trash_btn_hidden'}`
   );
+  const isLiked = props.likes.some(i => i._id === currentUser._id);
+  const cardLikeBtnActive = `card__btn-like ${isLiked ? 'card__btn-like_active' : ''}`;
 
+  console.log(isLiked, 'Проверка лайка');
   function clickImg() {
     props.onClickCard(props);
   }
@@ -25,7 +26,7 @@ function Card(props) {
         <div className="card__text">
           <p className="card__title">{props.title}</p>
           <div className="card__like-box">
-            <button className="card__btn-like hover-opacity" type="button" />
+            <button className={`card__btn-like ${cardLikeBtnActive} hover-opacity`} type="button" />
             <p className="card__like-text">{props.likes.length}</p>
           </div>
         </div>

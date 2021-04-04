@@ -1,11 +1,13 @@
 import React from 'react';
 import api from "../utils/api";
 import Card from "./Card";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
+
   const currentUser = React.useContext(CurrentUserContext);
-  console.log(currentUser);
+  //console.log(currentUser, 'Компонен: MAIN');
+
   const [cards , setCards ] = React.useState([]);
 
   React.useEffect(()=> {
@@ -46,6 +48,7 @@ function Main(props) {
             src={item.link}
             alt={item.name}
             likes={item.likes}
+            ownerId={item.owner._id}
             onClickCard={props.onCardClick}
           />)
         }

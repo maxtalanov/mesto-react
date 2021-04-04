@@ -1,12 +1,12 @@
 import React from "react";
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import api from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   //console.log(props, 'Компонент APP');
@@ -15,13 +15,13 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [dataImg, setDataImg] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState('');
 
 
     React.useEffect(() => {
-    api.getInfoUser()
-      .then(userInfo => {
-        setCurrentUser(userInfo)
+    api.getInfoUser(currentUser)
+      .then(currentUser => {
+        setCurrentUser(currentUser)
       })
       .catch((err) => {
         const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';

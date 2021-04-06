@@ -13,9 +13,11 @@ function Card(props) {
   const isLiked = props.likes.some(i => i._id === currentUser._id);
   const cardLikeBtnActive = `card__btn-like ${isLiked ? 'card__btn-like_active' : ''}`;
 
-  console.log(isLiked, 'Проверка лайка');
   function clickImg() {
     props.onClickCard(props);
+  }
+  function clickLike() {
+    props.onCardLike(props);
   }
 
   return(
@@ -26,7 +28,7 @@ function Card(props) {
         <div className="card__text">
           <p className="card__title">{props.title}</p>
           <div className="card__like-box">
-            <button className={`card__btn-like ${cardLikeBtnActive} hover-opacity`} type="button" />
+            <button className={`card__btn-like ${cardLikeBtnActive} hover-opacity`} type="button" onClick={clickLike}/>
             <p className="card__like-text">{props.likes.length}</p>
           </div>
         </div>

@@ -90,6 +90,16 @@ export class Api {
         avatar: editDataUser.avatar})
     }).then(onError)
   }
+
+  //9. Метод: постановки и снятия лайка
+  changeLikeCardStatus(cardID, like) {
+    console.log(cardID, like);
+    // Обычная реализация: 2 разных метода для удаления и постановки лайка.
+    return fetch(`${this._url}/${this._groupID}/cards/likes/${cardID}`, {
+      method: like ? 'PUT' : 'DELETE',
+      headers: this._headers,
+    }).then(onError)
+  }
 }
 
 const api = new Api({

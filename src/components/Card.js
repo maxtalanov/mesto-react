@@ -19,17 +19,21 @@ function Card(props) {
   function clickLike() {
     props.onCardLike(props);
   }
+  function removeCard() {
+    props.onCardDelete(props);
+  }
 
   return(
     <figure className="card">
-      <button className={`${cardDeletBtn} hover-opacity`} />
-      <img className="card__img" src={props.src} alt={props.alt} onClick={clickImg}/>
+      <button className={`${cardDeletBtn} hover-opacity`} onClick={removeCard} />
+      <img className="card__img" src={props.src} alt={props.alt}  onClick={clickImg}/>
+
       <figcaption className="card__bottom">
         <div className="card__text">
           <p className="card__title">{props.title}</p>
           <div className="card__like-box">
             <button className={`card__btn-like ${cardLikeBtnActive} hover-opacity`} type="button" onClick={clickLike}/>
-            <p className="card__like-text">{props.likes.length}</p>
+            <p className="card__like-text">{props.likes.length} </p>
           </div>
         </div>
       </figcaption>

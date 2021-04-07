@@ -55,7 +55,7 @@ export class Api {
 
   //5. Метод удаления карточки
   removeCard(id) {
-    // console.log(id)
+     console.log(id)
     return fetch(`${this._url}/${this._groupID}/cards/${id}`, { //тут НАДО ПОПРАВИТЬ БУДЕТ ССЫЛКУ
       method: "DELETE",
       headers: this._headers

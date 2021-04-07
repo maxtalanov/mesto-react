@@ -4,10 +4,9 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-
-  const currentUser = React.useContext(CurrentUserContext);
   //console.log(currentUser, 'Компонен: MAIN');
 
+  const currentUser = React.useContext(CurrentUserContext);
   const [cards , setCards ] = React.useState([]);
 
 
@@ -20,6 +19,19 @@ function Main(props) {
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id ? c : ''));
       })
       .catch((err) => {
         const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
@@ -71,6 +83,7 @@ function Main(props) {
             ownerId={item.owner._id}
             onClickCard={props.onCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />)
         }
       </section>

@@ -5,6 +5,7 @@ import Main from '../components/Main';
 import Footer from '../components/Footer';
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -16,7 +17,6 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [dataImg, setDataImg] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState('');
-
 
     React.useEffect(() => {
     api.getInfoUser(currentUser)
@@ -60,71 +60,74 @@ function App() {
   }
 
   return (
-    <div className="page">
-      <Header />
-      <CurrentUserContext.Provider value={currentUser}>
-        <Main
-          profileEditOnClick={handleEditProfileClick}
-          addPlacrOnClick={handleAddPlaceClick}
-          avatarEditOnClick={handleEditAvatarClick}
-          onCardClick={handleCardClick}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header />
+          <Main
+            profileEditOnClick={handleEditProfileClick}
+            addPlacrOnClick={handleAddPlaceClick}
+            avatarEditOnClick={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+          />
+
+        <Footer />
+
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} isClose={closeAllPopups} />
+
+        <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}
+                       inputBtnSelector="save" inpitValue="Сохранить">
+
+          <fieldset className="form__set form__profile">
+            <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"
+                   minLength="2" maxLength="40" autoComplete="off" required />
+            <span className="form__error-span" id="profile-name-error" />
+
+            <input className="form__input form__status" id="profile-status" type="text" name="about" placeholder="Введите ваш статус"
+                   minLength="2" maxLength="200" autoComplete="off" required />
+            <span className="form__error-span" id="profile-status-error" />
+          </fieldset>
+
+
+        </PopupWithForm>
+
+        <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}
+        inputBtnSelector="create" inpitValue="Создать">
+
+          <fieldset className="form__set">
+            <input className="form__input form__in-name" id="card-name" type="text" name="name" placeholder="Название"
+            minLength="2" maxLength="30" autoComplete="off" required />
+            <span className="form__error-span" id="card-name-error" />
+
+            <input className="form__input form__in-link" id="card-link" type="url" name="link"
+            placeholder="Ссылка на картинку" required />
+            <span className="form__error-span" id="card-link-error" />
+          </fieldset>
+
+        </PopupWithForm>
+
+        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}
+        inputBtnSelector="save" inpitValue="Сохранить">
+
+          <fieldset className="form__set">
+            <input className="form__input form__in-link" id="avatar-link" type="url" name="avatar"
+             placeholder="Ссылка на картинку" required />
+            <span className="form__error-span" id="avatar-link-error" />
+          </fieldset>
+
+        </PopupWithForm>
+
+        <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inpitValue="Да">
+        </PopupWithForm>
+
+        <ImagePopup
+          card={selectedCard}
+          cardData={dataImg}
+          onClose={closeAllPopups}
         />
-      </CurrentUserContext.Provider>
-      <Footer />
-
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}
-      inputBtnSelector="save" inpitValue="Сохранить">
-
-        <fieldset className="form__set form__profile">
-          <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"
-          minLength="2" maxLength="40" autoComplete="off" required />
-          <span className="form__error-span" id="profile-name-error" />
-
-          <input className="form__input form__status" id="profile-status" type="text" name="about" placeholder="Введите ваш статус"
-          minLength="2" maxLength="200" autoComplete="off" required />
-          <span className="form__error-span" id="profile-status-error" />
-        </fieldset>
 
 
-      </PopupWithForm>
-
-      <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}
-      inputBtnSelector="create" inpitValue="Создать">
-
-        <fieldset className="form__set">
-          <input className="form__input form__in-name" id="card-name" type="text" name="name" placeholder="Название"
-          minLength="2" maxLength="30" autoComplete="off" required />
-          <span className="form__error-span" id="card-name-error" />
-
-          <input className="form__input form__in-link" id="card-link" type="url" name="link"
-          placeholder="Ссылка на картинку" required />
-          <span className="form__error-span" id="card-link-error" />
-        </fieldset>
-
-      </PopupWithForm>
-
-      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}
-      inputBtnSelector="save" inpitValue="Сохранить">
-
-        <fieldset className="form__set">
-          <input className="form__input form__in-link" id="avatar-link" type="url" name="avatar"
-           placeholder="Ссылка на картинку" required />
-          <span className="form__error-span" id="avatar-link-error" />
-        </fieldset>
-
-      </PopupWithForm>
-
-      <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inpitValue="Да">
-      </PopupWithForm>
-
-      <ImagePopup
-        card={selectedCard}
-        cardData={dataImg}
-        onClose={closeAllPopups}
-      />
-
-
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

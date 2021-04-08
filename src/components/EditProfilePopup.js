@@ -7,17 +7,33 @@ function EditProfilePopup(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
   const [name , setName ] = React.useState('');
-  const [description  , setDscription] = React.useState('');
+  const [description  , setDescription] = React.useState('');
   console.log(name, description);
+  console.log(props.onClose)
+
+  React.useEffect(() => {
+    if (currentUser) {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }
+  },[currentUser]);
 
   function handleNameChange(e){
     setName(e.target.value);
   }
-  function handleDscriptionChange(e){
-    setDscription(e.target.value);
+  function handleDescriptionChange(e){
+    setDescription(e.target.value);
   }
+function handleSubmit(e) {
+  e.preventDefault();
+
+  props.onUpdateUser({
+    name,
+    about: description,
+  });
+}
   return(
-    <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onclose}
+    <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}
     inputBtnSelector="save" inpitValue="Сохранить">
 
       <fieldset className="form__set form__profile">
@@ -26,7 +42,7 @@ function EditProfilePopup(props) {
         <span className="form__error-span" id="profile-name-error" />
 
         <input className="form__input form__status" id="profile-status" type="text" name="about" placeholder="Введите ваш статус"
-               minLength="2" maxLength="200" autoComplete="off" required value={description} onChange={handleDscriptionChange}/>
+               minLength="2" maxLength="200" autoComplete="off" required value={description} onChange={handleDescriptionChange}/>
         <span className="form__error-span" id="profile-status-error" />
       </fieldset>
 

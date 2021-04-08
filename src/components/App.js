@@ -59,6 +59,19 @@ function App() {
     document.querySelector('.popup_type_card').classList.toggle('popup_opened');
   }
 
+  function handleUpdateUser(editDataUser) {
+      console.log(editDataUser, '')
+    api.editYourProfile(editDataUser)
+      .then(newDataUser => {
+        setCurrentUser(newDataUser);
+        closeAllPopups(); 
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      })
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -72,23 +85,8 @@ function App() {
 
         <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} isClose={closeAllPopups} />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-        <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onClick={handleEditProfileClick}
-                       inputBtnSelector="save" inpitValue="Сохранить">
-
-          <fieldset className="form__set form__profile">
-            <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"
-                   minLength="2" maxLength="40" autoComplete="off" required />
-            <span className="form__error-span" id="profile-name-error" />
-
-            <input className="form__input form__status" id="profile-status" type="text" name="about" placeholder="Введите ваш статус"
-                   minLength="2" maxLength="200" autoComplete="off" required />
-            <span className="form__error-span" id="profile-status-error" />
-          </fieldset>
-
-
-        </PopupWithForm>
 
         <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}
         inputBtnSelector="create" inpitValue="Создать">

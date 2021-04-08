@@ -32,7 +32,7 @@ export class Api {
 
   //3. Метод редактирования профиля
   editYourProfile(editDataUser) {
-    // console.log(editDataUser, 'API 3');
+    console.log(editDataUser, 'API 3');
     return fetch(`${this._url}/${this._groupID}/users/me`, {
       method: "PATCH",
       headers: this._headers,

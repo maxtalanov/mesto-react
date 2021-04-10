@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -60,11 +61,11 @@ function App() {
   }
 
   function handleUpdateUser(editDataUser) {
-      console.log(editDataUser, '')
+      //console.log(editDataUser, '')
     api.editYourProfile(editDataUser)
       .then(newDataUser => {
         setCurrentUser(newDataUser);
-        closeAllPopups(); 
+        closeAllPopups();
       })
       .catch((err) => {
         const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
@@ -72,6 +73,21 @@ function App() {
         console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
       })
   }
+
+  function handleUpdateAvatar(editAvatar) {
+      console.log(editAvatar)
+    api.upAvatar(editAvatar)
+      .then(newDataUser => {
+        setCurrentUser(newDataUser);
+        closeAllPopups();
+      })
+      .catch((err) => {
+      const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+      console.log('Код ошибки:', err); // выведем ошибку в консоль
+      console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -86,7 +102,7 @@ function App() {
         <Footer />
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-
+        <EditAvatarPopup  isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
 
         <PopupWithForm name="card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onClick={handleAddPlaceClick}
         inputBtnSelector="create" inpitValue="Создать">
@@ -99,17 +115,6 @@ function App() {
             <input className="form__input form__in-link" id="card-link" type="url" name="link"
             placeholder="Ссылка на картинку" required />
             <span className="form__error-span" id="card-link-error" />
-          </fieldset>
-
-        </PopupWithForm>
-
-        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onClick={handleEditAvatarClick}
-        inputBtnSelector="save" inpitValue="Сохранить">
-
-          <fieldset className="form__set">
-            <input className="form__input form__in-link" id="avatar-link" type="url" name="avatar"
-             placeholder="Ссылка на картинку" required />
-            <span className="form__error-span" id="avatar-link-error" />
           </fieldset>
 
         </PopupWithForm>

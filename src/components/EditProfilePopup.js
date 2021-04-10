@@ -8,8 +8,8 @@ function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name , setName ] = React.useState('');
   const [description  , setDescription] = React.useState('');
-  console.log(name, description);
-  console.log(props.onClose)
+  // console.log(name, description);
+  // console.log(props.onClose)
 
   React.useEffect(() => {
     if (currentUser) {
@@ -24,14 +24,15 @@ function EditProfilePopup(props) {
   function handleDescriptionChange(e){
     setDescription(e.target.value);
   }
-function handleSubmit(e) {
-  e.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-  props.onUpdateUser({
-    name,
-    about: description,
-  });
-}
+    props.onUpdateUser({
+      name,
+      about: description,
+    });
+  }
+
   return(
     <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}
     inputBtnSelector="save" inpitValue="Сохранить">

@@ -18,8 +18,26 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [dataImg, setDataImg] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState('');
+  const [cards , setCards] = React.useState([]);
 
-    React.useEffect(() => {
+    //Карточки инит
+  React.useEffect(()=> {
+
+    //запрос за карточками
+    api.getIntalCards(cards)
+      .then(cards =>{
+        setCards(cards);
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      })
+  }, []);
+
+    //Информация о пользователе
+  React.useEffect(() => {
     api.getInfoUser(currentUser)
       .then(currentUser => {
         setCurrentUser(currentUser)
@@ -32,12 +50,42 @@ function App() {
       })
   },[])
 
-
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(false)
+  }
+
+  function handleCardLike(card) {
+    // console.log(card, 'handleCardLike')
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id ? c : ''));
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      });
   }
 
   function handleCardClick(card){
@@ -97,6 +145,9 @@ function App() {
             addPlacrOnClick={handleAddPlaceClick}
             avatarEditOnClick={handleEditAvatarClick}
             onCardClick={handleCardClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
         <Footer />

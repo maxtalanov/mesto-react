@@ -32,7 +32,7 @@ export class Api {
 
   //3. Метод редактирования профиля
   editYourProfile(editDataUser) {
-    // console.log(editDataUser, 'API 3');
+    console.log(editDataUser, 'API 3');
     return fetch(`${this._url}/${this._groupID}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -45,7 +45,7 @@ export class Api {
 
   //4. Метод добавления новой карточки
   addNewCard(data) {
-    // console.log(data, 'API 4');
+    console.log(data, 'API 4');
     return fetch(`${this._url}/${this._groupID}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -55,7 +55,7 @@ export class Api {
 
   //5. Метод удаления карточки
   removeCard(id) {
-    // console.log(id)
+     // console.log(id)
     return fetch(`${this._url}/${this._groupID}/cards/${id}`, { //тут НАДО ПОПРАВИТЬ БУДЕТ ССЫЛКУ
       method: "DELETE",
       headers: this._headers
@@ -88,6 +88,16 @@ export class Api {
       headers: this._headers,
       body: JSON.stringify({
         avatar: editDataUser.avatar})
+    }).then(onError)
+  }
+
+  //9. Метод: постановки и снятия лайка
+  changeLikeCardStatus(cardID, like) {
+    console.log(cardID, like);
+    // Обычная реализация: 2 разных метода для удаления и постановки лайка.
+    return fetch(`${this._url}/${this._groupID}/cards/likes/${cardID}`, {
+      method: like ? 'PUT' : 'DELETE',
+      headers: this._headers,
     }).then(onError)
   }
 }

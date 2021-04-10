@@ -21,6 +21,8 @@
 /* Конец: секция PROFILE */
 
 @import url(blocks/trash/trash.css);
+@import url(blocks/trash/_btn/trash_btn_visible.css);
+@import url(blocks/trash/_btn/trash_btn_hidden.css);
 
 /* Старт: блок FORM */
 @import url(blocks/form/form.css);

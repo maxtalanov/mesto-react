@@ -7,7 +7,7 @@ function PopupWithForm (props) {
 
   return (
     <section className={`popup popup_type_${props.name} ${classOpen}`}>
-      <form className={`form form-${props.name}`} action="#" name={`${props.name}`}>
+      <form className={`form form-${props.name}`} action="#" name={`${props.name}`} onSubmit={props.onSubmit}>
         <h2 className="form__title">{props.title}</h2>
         {props.children}
 

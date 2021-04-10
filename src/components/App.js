@@ -137,6 +137,20 @@ function App() {
     })
   }
 
+  function handleAddCard(addNewCardData) {
+    console.log(addNewCardData);
+    api.addNewCard(addNewCardData)
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
+        console.log('Код ошибки:', err); // выведем ошибку в консоль
+        console.log(`Проверьте причину в справочнике по адресу: ${linkError}`)
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -155,7 +169,7 @@ function App() {
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
         <EditAvatarPopup  isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddCard}/>
 
         <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inpitValue="Да">
         </PopupWithForm>

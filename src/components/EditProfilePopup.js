@@ -35,7 +35,7 @@ function EditProfilePopup(props) {
 
   return(
     <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}
-    inputBtnSelector="save" inpitValue="Сохранить">
+    inputBtnSelector="save" inputValue="Сохранить" isLoading={props.isLoading}>
 
       <fieldset className="form__set form__profile">
         <input className="form__input form__name" id="profile-name" type="text" name="name" placeholder="Введите ваше имя и/или фамилию"

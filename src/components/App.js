@@ -11,6 +11,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
+
 function App() {
   //console.log(props, 'Компонент APP');
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -20,6 +21,7 @@ function App() {
   const [dataImg, setDataImg] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState('');
   const [cards , setCards] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
     //Карточки инит
   React.useEffect(()=> {
@@ -110,11 +112,14 @@ function App() {
   }
 
   function handleUpdateUser(editDataUser) {
-      //console.log(editDataUser, '')
+    //console.log(editDataUser, '');
+
+    setIsLoading(true);
     api.editYourProfile(editDataUser)
       .then(newDataUser => {
         setCurrentUser(newDataUser);
         closeAllPopups();
+        setIsLoading(false);
       })
       .catch((err) => {
         const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
@@ -124,11 +129,14 @@ function App() {
   }
 
   function handleUpdateAvatar(editAvatar) {
-      console.log(editAvatar)
+    //console.log(editAvatar);
+
+    setIsLoading(true);
     api.upAvatar(editAvatar)
       .then(newDataUser => {
         setCurrentUser(newDataUser);
         closeAllPopups();
+        setIsLoading(false);
       })
       .catch((err) => {
       const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
@@ -138,11 +146,14 @@ function App() {
   }
 
   function handleAddCard(addNewCardData) {
-    console.log(addNewCardData);
+    //console.log(addNewCardData);
+
+    setIsLoading(true);
     api.addNewCard(addNewCardData)
       .then(newCard => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+        setIsLoading(false);
       })
       .catch((err) => {
         const linkError = 'https://yandex.ru/support/webmaster/error-dictionary/http-codes.html';
@@ -167,11 +178,11 @@ function App() {
 
         <Footer />
 
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-        <EditAvatarPopup  isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddCard}/>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isLoading={isLoading}/>
+        <EditAvatarPopup  isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={isLoading}/>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddCard} isLoading={isLoading}/>
 
-        <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inpitValue="Да">
+        <PopupWithForm name="delete" title="Вы уверены?" inputBtnSelector="create" inputValue="Да">
         </PopupWithForm>
 
         <ImagePopup
